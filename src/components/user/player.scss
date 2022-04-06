@@ -1,0 +1,14 @@
+.player {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 20px;
+  height: 20px;
+  background: blue;
+  border-radius: 100%;
+  .name {
+    position: absolute;
+    margin-top: -20px;
+  }
+}
