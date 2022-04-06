@@ -1,11 +1,12 @@
 import Game from "./Game";
+import Controller from "./components/controller";
 
 
 function App() {
   return (
     <div className="App">
       <Game />
-      test
+      <Controller />
     </div>
   );
 }
