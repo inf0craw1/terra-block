@@ -1,8 +1,8 @@
 .window {
   width: 960px;
   height: 540px;
-  margin: auto;
-  margin-top: 20px;
+  margin: 20px auto 0 auto;
+  overflow: hidden;
   .display {
     position: relative;
     width: 100%;
