@@ -1,6 +1,6 @@
 import './game.scss';
 import RenderMap from "./Map";
-import User from "../components/user";
+import Player from "../components/player";
 import {mapData} from "../datas/map";
 import {usePlayerStore} from "../store/player";
 import {useEffect, useState} from "react";
@@ -17,7 +17,7 @@ function Game() {
     <div className="window">
       <div className="display">
         <RenderMap mapData={map} />
-        <User/>
+        <Player/>
       </div>
     </div>
   )
