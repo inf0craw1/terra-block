@@ -9,7 +9,7 @@ export const usePlayerStore = create<PlayerStoreInterface>((set) => ({
   status: {
     HP: 100,
     maxHP: 100,
-    speed: 1,
+    speed: 10,
   },
   location: {
     map: 0,
@@ -22,6 +22,6 @@ export const usePlayerStore = create<PlayerStoreInterface>((set) => ({
   setStatusMaxHP: (maxHP) => set(state => ({ ...state, status: { ...state.status, maxHP: maxHP } })),
   setStatusSpeed: (speed) => set(state => ({ ...state, status: { ...state.status, speed: speed } })),
   setLocationMap: (map) => set(state => ({ ...state, location: { ...state.location, map: map } })),
-  setLocationX: (X) => set(state => ({ ...state, location: { ...state.location, X: X } })),
-  setLocationY: (Y) => set(state => ({ ...state, location: { ...state.location, Y: Y } })),
+  setLocationX: (x) => set(state => ({ ...state, location: { ...state.location, x: x } })),
+  setLocationY: (y) => set(state => ({ ...state, location: { ...state.location, y: y } })),
 }));

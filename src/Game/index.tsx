@@ -13,6 +13,10 @@ function Game() {
     setMap(mapData[location.map]);
   }, [location.map]);
 
+  useEffect(() => {
+    console.log(`${location.x} / ${location.y}`);
+  }, [location]);
+
   return (
     <div className="window">
       <div className="display">
