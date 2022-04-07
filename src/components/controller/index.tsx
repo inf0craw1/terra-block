@@ -16,13 +16,17 @@ const Controller = () => {
   document.addEventListener("keyup", (e) => {
     keyMap[e.key] = false;
   });
-    const int = setInterval(() => {
-      console.log();
-      if(keyMap["ArrowLeft"]) {
-        setLocationX(location.x - status.speed);
-      }
-    }, 1000);
 
+  const intervalFunc = (location:any) => {
+    if(keyMap["ArrowLeft"]) {
+      setLocationX(location.x - status.speed);
+    }
+  }
+
+  const int = setInterval(() => {
+    let {location} = usePlayerStore();
+    intervalFunc(location);
+  }, 1000);
 
   return (
     <></>
