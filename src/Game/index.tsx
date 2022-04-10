@@ -6,7 +6,7 @@ import {usePlayerStore} from "../store/player";
 import {useEffect, useState} from "react";
 
 function Game() {
-  const { location } = usePlayerStore();
+  const { location, setLocationX } = usePlayerStore();
   const [map, setMap] = useState<number[][]>(mapData[0]);
 
   useEffect(() => {
