@@ -1,7 +1,9 @@
 import create from "zustand";
 import {PlayerStoreInterface} from "./it";
+import { devtools } from "zustand/middleware";
 
-export const usePlayerStore = create<PlayerStoreInterface>((set) => ({
+export const usePlayerStore = create<PlayerStoreInterface>(
+  devtools((set) => ({
   profile: {
     name: "covy",
     id: "inf0craw1",
@@ -24,4 +26,4 @@ export const usePlayerStore = create<PlayerStoreInterface>((set) => ({
   setLocationMap: (map) => set(state => ({ ...state, location: { ...state.location, map: map } })),
   setLocationX: (x) => set(state => ({ ...state, location: { ...state.location, x: x } })),
   setLocationY: (y) => set(state => ({ ...state, location: { ...state.location, y: y } })),
-}));
+})));

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {usePlayerStore} from "../../store/player";
 
 interface controlInterface {
@@ -7,8 +7,8 @@ interface controlInterface {
 
 const Controller = () => {
   const { status, location, setLocationX } = usePlayerStore();
-  const [keyMap, setKeyMap] = useState<any>({});
-
+  const locationRef = useRef(usePlayerStore.getState().location);
+  const keyMap:any = {};
 
   const intervalFunc = (location:any) => {
     if(keyMap["ArrowLeft"]) {
@@ -23,17 +23,21 @@ const Controller = () => {
   }
 
   useEffect(() => {
+    // @ts-ignore
+    usePlayerStore.subscribe(location => (locationRef.current = location),
+      state => state.location);
 
     document.addEventListener("keydown", (e) => {
-      setKeyMap({...keyMap, [e.key]: true});
+      setLocationX(location.x - status.speed);
+
     })
     document.addEventListener("keyup", (e) => {
-      setKeyMap({...keyMap, [e.key]: false});
+      keyMap[e.key] = false;
     })
 
     const controlInterval = setInterval( () => {
       keyControl();
-    }, 1000);
+    }, 100);
   }, [])
 
 

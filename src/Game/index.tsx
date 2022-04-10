@@ -4,6 +4,7 @@ import Player from "../components/player";
 import {mapData} from "../datas/map";
 import {usePlayerStore} from "../store/player";
 import {useEffect, useState} from "react";
+import Controller from "../components/controller";
 
 function Game() {
   const { location, setLocationX } = usePlayerStore();
@@ -22,6 +23,7 @@ function Game() {
       <div className="display">
         <RenderMap mapData={map} />
         <Player/>
+        <Controller/>
       </div>
     </div>
   )
