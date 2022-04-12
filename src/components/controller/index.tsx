@@ -6,7 +6,8 @@ interface controlInterface {
 }
 
 const Controller = () => {
-  const { status, location, setLocationX } = usePlayerStore();
+  const { status, setLocationX } = usePlayerStore();
+  const location = usePlayerStore(state => state.location);
   const locationRef = useRef(usePlayerStore.getState().location);
   const keyMap:any = {};
 
@@ -22,22 +23,28 @@ const Controller = () => {
     }
   }
 
+  const handleKeyDown = (e:KeyboardEvent) => {
+    setLocationX(location.x - status.speed);
+  };
+  const handleKeyUp = (e:KeyboardEvent) => {
+    keyMap[e.key] = false;
+  };
   useEffect(() => {
     // @ts-ignore
     usePlayerStore.subscribe(location => (locationRef.current = location),
       state => state.location);
-
-    document.addEventListener("keydown", (e) => {
-      setLocationX(location.x - status.speed);
-
-    })
-    document.addEventListener("keyup", (e) => {
-      keyMap[e.key] = false;
-    })
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
 
     const controlInterval = setInterval( () => {
       keyControl();
     }, 100);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+      clearInterval(controlInterval);
+    }
   }, [])
 
 
