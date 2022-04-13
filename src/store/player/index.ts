@@ -11,7 +11,7 @@ export const usePlayerStore = create<PlayerStoreInterface>(
   status: {
     HP: 100,
     maxHP: 100,
-    speed: 10,
+    speed: 1,
   },
   location: {
     map: 0,
