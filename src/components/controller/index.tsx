@@ -10,6 +10,9 @@ const Controller = () => {
   const location = usePlayerStore(state => state.location);
   const locationRef = useRef(usePlayerStore.getState().location);
   const keyMap:any = {};
+  const sub = usePlayerStore.subscribe(console.log);
+
+  sub();
 
   const intervalFunc = (location:any) => {
     if(keyMap["ArrowLeft"]) {
