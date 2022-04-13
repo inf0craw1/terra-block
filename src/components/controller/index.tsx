@@ -1,59 +1,49 @@
-import {useEffect, useRef, useState} from "react";
-import {usePlayerStore} from "../../store/player";
-
-interface controlInterface {
-  (e:KeyboardEvent):void;
-}
+import { useEffect } from "react";
+import { usePlayerStore } from "../../store/player";
+import { KeyMapInterface } from "../../store/contorller/it";
 
 const Controller = () => {
-  const { status, setLocationX } = usePlayerStore();
-  const location = usePlayerStore(state => state.location);
-  const locationRef = useRef(usePlayerStore.getState().location);
-  const keyMap:any = {};
-  const sub = usePlayerStore.subscribe(console.log);
+  const { status, setLocationX, setLocationY } = usePlayerStore();
+  const keyMap: KeyMapInterface = {};
+  const DISPLAY_WIDTH: any = process.env.REACT_APP_DISPLAY_WIDTH;
+  const DISPLAY_HEIGHT: any = process.env.REACT_APP_DISPLAY_HEIGHT;
 
-  sub();
+  console.log(DISPLAY_HEIGHT);
 
-  const intervalFunc = (location:any) => {
-    if(keyMap["ArrowLeft"]) {
-      setLocationX(location.x - status.speed);
-    }
-  }
-
-  const keyControl = () => {
-    if(keyMap["ArrowLeft"]) {
-      setLocationX(location.x - status.speed);
-    }
-  }
-
-  const handleKeyDown = (e:KeyboardEvent) => {
-    setLocationX(location.x - status.speed);
-  };
-  const handleKeyUp = (e:KeyboardEvent) => {
-    keyMap[e.key] = false;
-  };
   useEffect(() => {
-    // @ts-ignore
-    usePlayerStore.subscribe(location => (locationRef.current = location),
-      state => state.location);
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
+    const interval = setInterval(() => {
+      const loc = usePlayerStore.getState().location;
 
-    const controlInterval = setInterval( () => {
-      keyControl();
-    }, 100);
+      if (keyMap?.ArrowLeft) {
+        setLocationX(loc.x - status.speed);
+      }
+      if (keyMap?.ArrowRight) {
+        setLocationX(
+          loc.x + status.speed >= +DISPLAY_WIDTH
+            ? +DISPLAY_WIDTH
+            : loc.x + status.speed
+        );
+      }
+      if (keyMap?.ArrowUp) {
+        setLocationY(loc.y - status.speed);
+      }
+      if (keyMap?.ArrowDown) {
+        setLocationY(loc.y + status.speed);
+      }
+    }, 10);
 
+    document.addEventListener("keydown", (e) => {
+      keyMap[e.key] = true;
+    });
+    document.addEventListener("keyup", (e) => {
+      keyMap[e.key] = false;
+    });
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyUp);
-      clearInterval(controlInterval);
-    }
-  }, [])
+      clearInterval(interval);
+    };
+  }, []);
 
-
-  return (
-    <></>
-  )
-}
+  return <></>;
+};
 
 export default Controller;
