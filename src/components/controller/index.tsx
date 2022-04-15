@@ -1,45 +1,69 @@
 import { useEffect } from "react";
 import { usePlayerStore } from "../../store/player";
 import { KeyMapInterface } from "../../store/contorller/it";
+import { useGameStore } from "../../store/game";
 
 const Controller = () => {
-  const { status, setLocationX, setLocationY } = usePlayerStore();
+  const { status, size, setLocationX, setLocationY, setTargetBlock } =
+    usePlayerStore();
   const keyMap: KeyMapInterface = {};
-  const DISPLAY_WIDTH: any = process.env.REACT_APP_DISPLAY_WIDTH;
-  const DISPLAY_HEIGHT: any = process.env.REACT_APP_DISPLAY_HEIGHT;
-
-  console.log(DISPLAY_HEIGHT);
+  const { DISPLAY, BLOCK_SIZE } = useGameStore();
 
   useEffect(() => {
     const interval = setInterval(() => {
       const loc = usePlayerStore.getState().location;
 
       if (keyMap?.ArrowLeft) {
-        setLocationX(loc.x - status.speed);
+        setLocationX(loc.x - status.speed <= 0 ? 0 : loc.x - status.speed);
+        setTargetBlock(
+          Math.floor(loc.x / BLOCK_SIZE),
+          Math.floor(loc.y / BLOCK_SIZE)
+        );
       }
       if (keyMap?.ArrowRight) {
         setLocationX(
-          loc.x + status.speed >= +DISPLAY_WIDTH
-            ? +DISPLAY_WIDTH
+          loc.x + status.speed >= DISPLAY.width - size.width
+            ? DISPLAY.width - size.width
             : loc.x + status.speed
+        );
+        setTargetBlock(
+          Math.floor(loc.x / BLOCK_SIZE),
+          Math.floor(loc.y / BLOCK_SIZE)
         );
       }
       if (keyMap?.ArrowUp) {
-        setLocationY(loc.y - status.speed);
+        setLocationY(loc.y - status.speed <= 0 ? 0 : loc.y - status.speed);
+        setTargetBlock(
+          Math.floor(loc.x / BLOCK_SIZE),
+          Math.floor(loc.y / BLOCK_SIZE)
+        );
       }
       if (keyMap?.ArrowDown) {
-        setLocationY(loc.y + status.speed);
+        setLocationY(
+          loc.y + status.speed >= DISPLAY.height - size.height
+            ? DISPLAY.height - size.height
+            : loc.y + status.speed
+        );
+        setTargetBlock(
+          Math.floor(loc.x / BLOCK_SIZE),
+          Math.floor(loc.y / BLOCK_SIZE)
+        );
       }
     }, 10);
 
-    document.addEventListener("keydown", (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       keyMap[e.key] = true;
-    });
-    document.addEventListener("keyup", (e) => {
+    };
+    const handleKeyUp = (e: KeyboardEvent) => {
       keyMap[e.key] = false;
-    });
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
     return () => {
       clearInterval(interval);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
   }, []);
 
