@@ -10,15 +10,31 @@ const TargetBlock = () => {
     let additionalX = BLOCK_SIZE / 2,
       additionalY = BLOCK_SIZE / 2;
 
-    if (status.direction === (1 | 2 | 3)) {
-      additionalY -= BLOCK_SIZE * 2;
-    } else if (status.direction === (7 | 8 | 9)) {
-      additionalY += BLOCK_SIZE * 2;
+    if (
+      status.direction === 1 ||
+      status.direction === 2 ||
+      status.direction === 3
+    ) {
+      additionalY -= BLOCK_SIZE;
+    } else if (
+      status.direction === 7 ||
+      status.direction === 8 ||
+      status.direction === 9
+    ) {
+      additionalY += BLOCK_SIZE;
     }
-    if (status.direction === (1 | 4 | 7)) {
-      additionalX -= BLOCK_SIZE * 2;
-    } else if (status.direction === (3 | 6 | 9)) {
-      additionalX += BLOCK_SIZE * 2;
+    if (
+      status.direction === 1 ||
+      status.direction === 4 ||
+      status.direction === 7
+    ) {
+      additionalX -= BLOCK_SIZE;
+    } else if (
+      status.direction === 3 ||
+      status.direction === 6 ||
+      status.direction === 9
+    ) {
+      additionalX += BLOCK_SIZE;
     }
 
     setTargetBlock(
