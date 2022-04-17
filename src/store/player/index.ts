@@ -11,7 +11,7 @@ export const usePlayerStore = create<PlayerStoreInterface>(
     status: {
       HP: 100,
       maxHP: 100,
-      speed: 5,
+      speed: 3,
       direction: 8,
     },
     location: {
@@ -26,6 +26,7 @@ export const usePlayerStore = create<PlayerStoreInterface>(
     targetBlock: {
       x: 0,
       y: 0,
+      item: 0,
     },
     hand: [0, 0, 0, 0, 0],
     inventory: [
@@ -52,6 +53,14 @@ export const usePlayerStore = create<PlayerStoreInterface>(
     setLocationY: (y) =>
       set((state) => ({ ...state, location: { ...state.location, y: y } })),
     setTargetBlock: (x, y) =>
-      set((state) => ({ ...state, targetBlock: { x: x, y: y } })),
+      set((state) => ({
+        ...state,
+        targetBlock: { ...state.targetBlock, x: x, y: y },
+      })),
+    setTargetBlockItem: (item) =>
+      set((state) => ({
+        ...state,
+        targetBlock: { ...state.targetBlock, item: item },
+      })),
   }))
 );
