@@ -40,6 +40,11 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       set((state) => ({ ...state, status: { ...state.status, maxHP: maxHP } })),
     setStatusSpeed: (speed) =>
       set((state) => ({ ...state, status: { ...state.status, speed: speed } })),
+    setStatusDirection: (direction) =>
+      set((state) => ({
+        ...state,
+        status: { ...state.status, direction: direction },
+      })),
     setLocationMap: (map) =>
       set((state) => ({ ...state, location: { ...state.location, map: map } })),
     setLocationX: (x) =>
