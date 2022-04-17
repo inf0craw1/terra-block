@@ -6,7 +6,7 @@ export const useGameStore = create<GameStoreInterface>(
   devtools(() => ({
     DISPLAY: {
       width: 960,
-      height: 560,
+      height: 540,
     },
     BLOCK_SIZE: 20,
   }))
