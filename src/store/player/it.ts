@@ -21,6 +21,7 @@ export interface PlayerStoreInterface {
   targetBlock: {
     x: number;
     y: number;
+    item: number;
   };
   hand: number[];
   inventory: number[][];
@@ -32,4 +33,5 @@ export interface PlayerStoreInterface {
   setLocationX: (x: number) => void;
   setLocationY: (y: number) => void;
   setTargetBlock: (x: number, y: number) => void;
+  setTargetBlockItem: (item: number) => void;
 }
