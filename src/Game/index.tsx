@@ -5,6 +5,7 @@ import { mapData } from "../datas/map";
 import { usePlayerStore } from "../store/player";
 import { useEffect, useState } from "react";
 import Controller from "../components/controller";
+import TargetBlock from "../components/targetBlock";
 
 function Game() {
   const { location } = usePlayerStore();
@@ -18,6 +19,7 @@ function Game() {
     <div className="window">
       <div className="display">
         <RenderMap mapData={map} />
+        <TargetBlock />
         <Player />
         <Controller />
       </div>
