@@ -27,6 +27,7 @@ export interface PlayerStoreInterface {
   setStatusHP: (HP: number) => void;
   setStatusMaxHP: (maxHP: number) => void;
   setStatusSpeed: (speed: number) => void;
+  setStatusDirection: (direction: 1 | 2 | 3 | 4 | 6 | 7 | 8 | 9) => void;
   setLocationMap: (map: number) => void;
   setLocationX: (x: number) => void;
   setLocationY: (y: number) => void;

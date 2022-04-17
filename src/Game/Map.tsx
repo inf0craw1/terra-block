@@ -1,9 +1,7 @@
 import { RenderMapPropsInterface } from "./it";
-import { usePlayerStore } from "../store/player";
 
 function RenderMap(props: RenderMapPropsInterface): JSX.Element {
   const { mapData } = props;
-  const { targetBlock } = usePlayerStore();
 
   return (
     <>
@@ -13,11 +11,7 @@ function RenderMap(props: RenderMapPropsInterface): JSX.Element {
             key={`map_${rowIdx}_${colIdx}`}
             src="/asset/img/map/grass.png"
             alt=""
-            className={`block ${
-              rowIdx === targetBlock.y &&
-              colIdx === targetBlock.x &&
-              "targeted-block"
-            }`}
+            className="block"
             style={{
               position: "absolute",
               top: rowIdx * 20,
