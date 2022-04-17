@@ -9,7 +9,7 @@ function RenderMap(props: RenderMapPropsInterface): JSX.Element {
         row.map((col, colIdx) => (
           <img
             key={`map_${rowIdx}_${colIdx}`}
-            src="/asset/img/map/grass.png"
+            src={`/asset/img/map/${col}.png`}
             alt=""
             className="block"
             style={{
