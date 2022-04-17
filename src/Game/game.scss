@@ -10,11 +10,9 @@
 
     .block {
       position: absolute;
-
-      &.targeted-block {
-        border: 1px solid gray;
-      }
     }
-
+    .targeted-block {
+      border: 1px solid gray;
+    }
   }
 }
