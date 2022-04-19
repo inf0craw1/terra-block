@@ -22,6 +22,8 @@ export interface PlayerStoreInterface {
     x: number;
     y: number;
     item: number;
+    process: number;
+    processingTime: number;
   };
   hand: number[];
   inventory: number[][];
@@ -34,4 +36,6 @@ export interface PlayerStoreInterface {
   setLocationY: (y: number) => void;
   setTargetBlock: (x: number, y: number) => void;
   setTargetBlockItem: (item: number) => void;
+  setProcess: (process: number) => void;
+  setProcessingTime: (processingTime: number) => void;
 }
