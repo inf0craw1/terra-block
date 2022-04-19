@@ -1,10 +1,12 @@
 import { usePlayerStore } from "../../store/player";
 import { useEffect } from "react";
 import { useGameStore } from "../../store/game";
+import { mapData } from "../../datas/map";
 
 const TargetBlock = () => {
-  const { BLOCK_SIZE } = useGameStore();
-  const { targetBlock, status, location, setTargetBlock } = usePlayerStore();
+  const { BLOCK_SIZE, DISPLAY } = useGameStore();
+  const { targetBlock, status, location, setTargetBlock, setTargetBlockItem } =
+    usePlayerStore();
 
   useEffect(() => {
     let additionalX = BLOCK_SIZE / 2,
@@ -36,11 +38,25 @@ const TargetBlock = () => {
     ) {
       additionalX += BLOCK_SIZE;
     }
+    let [rowIdx, colIdx] = [
+      Math.floor((location.y + additionalY) / BLOCK_SIZE),
+      Math.floor((location.x + additionalX) / BLOCK_SIZE),
+    ];
+    if (rowIdx <= 0) {
+      rowIdx = 0;
+    }
+    if (rowIdx >= DISPLAY.height / BLOCK_SIZE - 1) {
+      rowIdx = DISPLAY.height / BLOCK_SIZE - 1;
+    }
+    if (colIdx <= 0) {
+      colIdx = 0;
+    }
+    if (colIdx >= DISPLAY.width / BLOCK_SIZE - 1) {
+      colIdx = DISPLAY.width / BLOCK_SIZE - 1;
+    }
 
-    setTargetBlock(
-      Math.floor((location.x + additionalX) / BLOCK_SIZE) * BLOCK_SIZE,
-      Math.floor((location.y + additionalY) / BLOCK_SIZE) * BLOCK_SIZE
-    );
+    setTargetBlock(colIdx * BLOCK_SIZE, rowIdx * BLOCK_SIZE);
+    setTargetBlockItem(mapData[location.map][rowIdx][colIdx]);
   }, [location]);
 
   return (
