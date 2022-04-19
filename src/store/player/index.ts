@@ -27,6 +27,8 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       x: 0,
       y: 0,
       item: 0,
+      process: 0,
+      processingTime: 0,
     },
     hand: [0, 0, 0, 0, 0],
     inventory: [
@@ -61,6 +63,19 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       set((state) => ({
         ...state,
         targetBlock: { ...state.targetBlock, item: item },
+      })),
+    setProcess: (process) =>
+      set((state) => ({
+        ...state,
+        process: { ...state.targetBlock, process: process },
+      })),
+    setProcessingTime: (processingTime) =>
+      set((state) => ({
+        ...state,
+        processingTime: {
+          ...state.targetBlock,
+          processingTime: processingTime,
+        },
       })),
   }))
 );
