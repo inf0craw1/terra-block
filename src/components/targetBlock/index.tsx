@@ -2,11 +2,19 @@ import { usePlayerStore } from "../../store/player";
 import { useEffect } from "react";
 import { useGameStore } from "../../store/game";
 import { mapData } from "../../datas/map";
+import { objectMapData } from "../../datas/objectMap";
 
 const TargetBlock = () => {
-  const { BLOCK_SIZE, DISPLAY } = useGameStore();
-  const { targetBlock, status, location, setTargetBlock, setTargetBlockItem } =
-    usePlayerStore();
+  const { BLOCK_SIZE, DISPLAY, PROCESSING_TIME } = useGameStore();
+  const {
+    targetBlock,
+    status,
+    location,
+    setTargetBlock,
+    setTargetBlockItem,
+    setTargetBlockProcess,
+    setTargetBlockProcessingTime,
+  } = usePlayerStore();
 
   useEffect(() => {
     let additionalX = BLOCK_SIZE / 2,
@@ -54,9 +62,17 @@ const TargetBlock = () => {
     if (colIdx >= DISPLAY.width / BLOCK_SIZE - 1) {
       colIdx = DISPLAY.width / BLOCK_SIZE - 1;
     }
-
-    setTargetBlock(colIdx * BLOCK_SIZE, rowIdx * BLOCK_SIZE);
-    setTargetBlockItem(mapData[location.map][rowIdx][colIdx]);
+    if (targetBlock.row !== rowIdx || targetBlock.col !== colIdx) {
+      let item = objectMapData[location.map][rowIdx][colIdx];
+      console.log(item);
+      console.log(item ? PROCESSING_TIME[item].processingTime : 0);
+      setTargetBlock(rowIdx, colIdx);
+      setTargetBlockItem(mapData[location.map][rowIdx][colIdx]);
+      setTargetBlockProcess(0);
+      setTargetBlockProcessingTime(
+        item ? PROCESSING_TIME[item].processingTime : 0
+      );
+    }
   }, [location]);
 
   return (
@@ -66,8 +82,8 @@ const TargetBlock = () => {
         width: BLOCK_SIZE,
         height: BLOCK_SIZE,
         position: "absolute",
-        top: targetBlock.y,
-        left: targetBlock.x,
+        top: targetBlock.row * BLOCK_SIZE,
+        left: targetBlock.col * BLOCK_SIZE,
       }}
     ></div>
   );
