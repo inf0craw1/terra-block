@@ -12,15 +12,15 @@ export const useGameStore = create(
     PROCESSING_TIME: {
       1: {
         item: 1,
-        processingTime: 3,
+        processingTime: 3000,
       },
       2: {
         item: 2,
-        processingTime: 2,
+        processingTime: 2000,
       },
       3: {
         item: 3,
-        processingTime: 5,
+        processingTime: 5000,
       },
     },
   }))
