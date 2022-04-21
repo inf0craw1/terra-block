@@ -24,8 +24,8 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       height: 20,
     },
     targetBlock: {
-      x: 0,
-      y: 0,
+      row: 0,
+      col: 0,
       item: 0,
       process: 0,
       processingTime: 0,
@@ -54,27 +54,30 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       set((state) => ({ ...state, location: { ...state.location, x: x } })),
     setLocationY: (y) =>
       set((state) => ({ ...state, location: { ...state.location, y: y } })),
-    setTargetBlock: (x, y) =>
+    setTargetBlock: (row, col) =>
       set((state) => ({
         ...state,
-        targetBlock: { ...state.targetBlock, x: x, y: y },
+        targetBlock: { ...state.targetBlock, row: row, col: col },
       })),
     setTargetBlockItem: (item) =>
       set((state) => ({
         ...state,
         targetBlock: { ...state.targetBlock, item: item },
       })),
-    setProcess: (process) =>
+    setTargetBlockProcess: (targetBlockProcess) =>
       set((state) => ({
         ...state,
-        process: { ...state.targetBlock, process: process },
-      })),
-    setProcessingTime: (processingTime) =>
-      set((state) => ({
-        ...state,
-        processingTime: {
+        targetBlock: {
           ...state.targetBlock,
-          processingTime: processingTime,
+          process: targetBlockProcess,
+        },
+      })),
+    setTargetBlockProcessingTime: (targetBlockProcessingTime) =>
+      set((state) => ({
+        ...state,
+        targetBlock: {
+          ...state.targetBlock,
+          processingTime: targetBlockProcessingTime,
         },
       })),
   }))
