@@ -17,7 +17,12 @@ const Player = () => {
         top: `${location.y}px`,
       }}
     >
-      <div className="processBarWrapper">
+      <div
+        className="processBarWrapper"
+        style={{
+          display: !!targetBlock.process ? "block" : "none",
+        }}
+      >
         <div
           className="processBar"
           style={{
