@@ -19,8 +19,8 @@ export interface PlayerStoreInterface {
     height: number;
   };
   targetBlock: {
-    x: number;
-    y: number;
+    row: number;
+    col: number;
     item: number;
     process: number;
     processingTime: number;
@@ -34,8 +34,8 @@ export interface PlayerStoreInterface {
   setLocationMap: (map: number) => void;
   setLocationX: (x: number) => void;
   setLocationY: (y: number) => void;
-  setTargetBlock: (x: number, y: number) => void;
+  setTargetBlock: (row: number, col: number) => void;
   setTargetBlockItem: (item: number) => void;
-  setProcess: (process: number) => void;
-  setProcessingTime: (processingTime: number) => void;
+  setTargetBlockProcess: (process: number) => void;
+  setTargetBlockProcessingTime: (processingTime: number) => void;
 }
