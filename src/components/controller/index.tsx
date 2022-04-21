@@ -10,7 +10,7 @@ const Controller = () => {
     setLocationX,
     setLocationY,
     setStatusDirection,
-    targetBlock,
+    setTargetBlockProcess,
   } = usePlayerStore();
   const keyMap: KeyMapInterface = {};
   const { DISPLAY, PROCESSING_TIME } = useGameStore();
@@ -18,6 +18,7 @@ const Controller = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       const loc = usePlayerStore.getState().location;
+      const targetBlock = usePlayerStore.getState().targetBlock;
 
       if (keyMap["ArrowLeft"] && !keyMap["ArrowRight"]) {
         setStatusDirection(4);
@@ -45,7 +46,17 @@ const Controller = () => {
       }
       if (keyMap[" "]) {
         if (targetBlock.item) {
+          setTargetBlockProcess(
+            targetBlock.process + 10 >= targetBlock.processingTime
+              ? targetBlock.processingTime
+              : targetBlock.process + 10
+          );
+          if (targetBlock.process >= targetBlock.processingTime) {
+            setTargetBlockProcess(0);
+          }
         }
+      } else {
+        setTargetBlockProcess(0);
       }
     }, 10);
 
