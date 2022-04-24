@@ -23,5 +23,8 @@ export const useGameStore = create(
         processingTime: 5000,
       },
     },
+    ITEM: {
+      maxQuantity: 10,
+    },
   }))
 );
