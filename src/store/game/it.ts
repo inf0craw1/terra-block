@@ -11,4 +11,7 @@ export interface GameStoreInterface {
   PROCESSING_TIME: {
     [item: number]: ProcessingTimeInterface;
   };
+  ITEM: {
+    maxQuantity: number;
+  };
 }
