@@ -11,9 +11,35 @@ const Controller = () => {
     setLocationY,
     setStatusDirection,
     setTargetBlockProcess,
+    setHandActive,
+    setHandItems,
   } = usePlayerStore();
   const keyMap: KeyMapInterface = {};
-  const { DISPLAY, PROCESSING_TIME } = useGameStore();
+  const { DISPLAY, PROCESSING_TIME, ITEM } = useGameStore();
+  const hand = usePlayerStore.getState().hand;
+
+  const getItem = (item: number) => {
+    for (let i = 0; i < hand.items.length; i++) {
+      if (
+        hand.items[i].code === item &&
+        hand.items[i].quantity < ITEM.maxQuantity
+      ) {
+        const newItems = JSON.parse(JSON.stringify(hand.items));
+        newItems[i].quantity++;
+        setHandItems(newItems);
+        return;
+      }
+    }
+    for (let i = 0; i < hand.items.length; i++) {
+      if (hand.items[i].code === 0) {
+        const newItems = JSON.parse(JSON.stringify(hand.items));
+        newItems[i].code = item;
+        newItems[i].quantity++;
+        setHandItems(newItems);
+        return;
+      }
+    }
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -53,10 +79,35 @@ const Controller = () => {
           );
           if (targetBlock.process >= targetBlock.processingTime) {
             setTargetBlockProcess(0);
+            getItem(targetBlock.item);
           }
         }
       } else {
         setTargetBlockProcess(0);
+      }
+      if (keyMap["1"]) {
+        setHandActive(1);
+      }
+      if (keyMap["2"]) {
+        setHandActive(2);
+      }
+      if (keyMap["3"]) {
+        setHandActive(3);
+      }
+      if (keyMap["4"]) {
+        setHandActive(4);
+      }
+      if (keyMap["5"]) {
+        setHandActive(5);
+      }
+      if (keyMap["6"]) {
+        setHandActive(6);
+      }
+      if (keyMap["7"]) {
+        setHandActive(7);
+      }
+      if (keyMap["8"]) {
+        setHandActive(8);
       }
     }, 10);
 
