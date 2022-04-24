@@ -30,7 +30,19 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       process: 0,
       processingTime: 0,
     },
-    hand: [0, 0, 0, 0, 0],
+    hand: {
+      active: 0,
+      items: [
+        { code: 0, quantity: 0 },
+        { code: 0, quantity: 0 },
+        { code: 0, quantity: 0 },
+        { code: 0, quantity: 0 },
+        { code: 0, quantity: 0 },
+        { code: 0, quantity: 0 },
+        { code: 0, quantity: 0 },
+        { code: 0, quantity: 0 },
+      ],
+    },
     inventory: [
       [0, 0, 0, 0, 0, 0, 0, 0],
       [0, 0, 0, 0, 0, 0, 0, 0],
@@ -80,5 +92,22 @@ export const usePlayerStore = create<PlayerStoreInterface>(
           processingTime: targetBlockProcessingTime,
         },
       })),
+    setHandActive: (hand) =>
+      set((state) => ({
+        ...state,
+        hand: {
+          ...state.hand,
+          active: hand,
+        },
+      })),
+    setHandItems: (items) => {
+      set((state) => ({
+        ...state,
+        hand: {
+          ...state.hand,
+          items: items,
+        },
+      }));
+    },
   }))
 );
