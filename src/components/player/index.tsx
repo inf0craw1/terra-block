@@ -5,10 +5,6 @@ import { useEffect } from "react";
 const Player = () => {
   const { profile, location } = usePlayerStore();
   const targetBlock = usePlayerStore.getState().targetBlock;
-  useEffect(() => {
-    console.log(targetBlock.item);
-    console.log(targetBlock.process / targetBlock.processingTime);
-  }, [targetBlock.process]);
   return (
     <div
       className="player"
