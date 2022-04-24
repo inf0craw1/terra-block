@@ -7,19 +7,17 @@ import { objectMapData } from "../../datas/objectMap";
 const TargetBlock = () => {
   const { BLOCK_SIZE, DISPLAY, PROCESSING_TIME } = useGameStore();
   const {
-    targetBlock,
     status,
     location,
+    targetBlock,
     setTargetBlock,
     setTargetBlockItem,
     setTargetBlockProcess,
     setTargetBlockProcessingTime,
   } = usePlayerStore();
-
   useEffect(() => {
     let additionalX = BLOCK_SIZE / 2,
       additionalY = BLOCK_SIZE / 2;
-
     if (
       status.direction === 1 ||
       status.direction === 2 ||
@@ -64,10 +62,8 @@ const TargetBlock = () => {
     }
     if (targetBlock.row !== rowIdx || targetBlock.col !== colIdx) {
       let item = objectMapData[location.map][rowIdx][colIdx];
-      console.log(item);
-      console.log(item ? PROCESSING_TIME[item].processingTime : 0);
       setTargetBlock(rowIdx, colIdx);
-      setTargetBlockItem(mapData[location.map][rowIdx][colIdx]);
+      setTargetBlockItem(item);
       setTargetBlockProcess(0);
       setTargetBlockProcessingTime(
         item ? PROCESSING_TIME[item].processingTime : 0
