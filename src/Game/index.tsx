@@ -8,6 +8,7 @@ import { usePlayerStore } from "../store/player";
 import { useEffect, useState } from "react";
 import Controller from "../components/controller";
 import TargetBlock from "../components/targetBlock";
+import Hand from "../components/hand";
 
 function Game() {
   const { location } = usePlayerStore();
@@ -25,6 +26,7 @@ function Game() {
         <Player />
         <RenderObjectMap mapData={objectMap} />
         <TargetBlock />
+        <Hand />
         <Controller />
       </div>
     </div>
