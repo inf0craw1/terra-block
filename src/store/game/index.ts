@@ -20,7 +20,7 @@ export const useGameStore = create(
       },
       3: {
         item: 3,
-        processingTime: 5000,
+        processingTime: 1000,
       },
     },
     ITEM: {
