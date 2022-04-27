@@ -31,7 +31,7 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       processingTime: 0,
     },
     hand: {
-      active: 0,
+      active: 1,
       items: [
         { code: 0, quantity: 0 },
         { code: 0, quantity: 0 },
@@ -43,12 +43,15 @@ export const usePlayerStore = create<PlayerStoreInterface>(
         { code: 0, quantity: 0 },
       ],
     },
-    inventory: [
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-      [0, 0, 0, 0, 0, 0, 0, 0],
-    ],
+    inventory: {
+      isOpen: false,
+      items: [
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+        [0, 0, 0, 0, 0, 0, 0, 0],
+      ],
+    },
     setStatusHP: (HP) =>
       set((state) => ({ ...state, status: { ...state.status, HP: HP } })),
     setStatusMaxHP: (maxHP) =>
@@ -106,6 +109,15 @@ export const usePlayerStore = create<PlayerStoreInterface>(
         hand: {
           ...state.hand,
           items: items,
+        },
+      }));
+    },
+    setInventoryOpen: (open) => {
+      set((state) => ({
+        ...state,
+        inventory: {
+          ...state.inventory,
+          isOpen: open,
         },
       }));
     },
