@@ -13,12 +13,13 @@ const Controller = () => {
     setTargetBlockProcess,
     setHandActive,
     setHandItems,
+    setInventoryOpen,
   } = usePlayerStore();
   const keyMap: KeyMapInterface = {};
   const { DISPLAY, PROCESSING_TIME, ITEM } = useGameStore();
-  const hand = usePlayerStore.getState().hand;
 
   const getItem = (item: number) => {
+    const hand = usePlayerStore.getState().hand;
     for (let i = 0; i < hand.items.length; i++) {
       if (
         hand.items[i].code === item &&
@@ -109,10 +110,23 @@ const Controller = () => {
       if (keyMap["8"]) {
         setHandActive(8);
       }
+      if (keyMap["Tab"]) {
+      }
     }, 10);
 
     const handleKeyDown = (e: KeyboardEvent) => {
+      let timeout;
+      const inventory = usePlayerStore.getState().inventory;
       keyMap[e.key] = true;
+      e.preventDefault();
+      if (e.key === "Tab") {
+        if (timeout) {
+          clearTimeout(timeout);
+        }
+        timeout = setTimeout(() => {
+          setInventoryOpen(!inventory.isOpen);
+        }, 10);
+      }
     };
     const handleKeyUp = (e: KeyboardEvent) => {
       keyMap[e.key] = false;
