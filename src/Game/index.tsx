@@ -9,11 +9,13 @@ import { useEffect, useState } from "react";
 import Controller from "../components/controller";
 import TargetBlock from "../components/targetBlock";
 import Hand from "../components/hand";
+import Inventory from "../components/inventory";
 
 function Game() {
   const { location } = usePlayerStore();
   const [map, setMap] = useState<number[][]>(mapData[0]);
   const [objectMap, setObjectMap] = useState<number[][]>(objectMapData[0]);
+  const inventory = usePlayerStore.getState().inventory;
 
   useEffect(() => {
     setMap(mapData[location.map]);
@@ -27,6 +29,7 @@ function Game() {
         <RenderObjectMap mapData={objectMap} />
         <TargetBlock />
         <Hand />
+        {inventory.isOpen ? <Inventory /> : null}
         <Controller />
       </div>
     </div>
