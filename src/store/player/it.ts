@@ -29,7 +29,10 @@ export interface PlayerStoreInterface {
     active: number;
     items: { code: number; quantity: number }[];
   };
-  inventory: number[][];
+  inventory: {
+    isOpen: boolean;
+    items: number[][];
+  };
   setStatusHP: (HP: number) => void;
   setStatusMaxHP: (maxHP: number) => void;
   setStatusSpeed: (speed: number) => void;
@@ -43,4 +46,5 @@ export interface PlayerStoreInterface {
   setTargetBlockProcessingTime: (processingTime: number) => void;
   setHandActive: (active: number) => void;
   setHandItems: (items: { code: number; quantity: number }[]) => void;
+  setInventoryOpen: (open: boolean) => void;
 }
