@@ -1,6 +1,6 @@
 # Terra Block
  
-Made this game to improve my React, Zustand skills.
+Made this game to improve my React, Zustand, css skills.
 
 ## MOVE
 Arrow
