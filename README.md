@@ -2,7 +2,7 @@
  
 Made this game to improve my React, Zustand, css skills.
 
-## MOVE 
+## MOVE
 Arrow
 
 ## interact
