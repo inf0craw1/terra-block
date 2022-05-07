@@ -16,9 +16,7 @@ const Inventory = () => {
           </div>
         </div>
         <div className="items-area">
-          <div className="items>
-
-          </div>
+          <div className="items"></div>
         </div>
       </div>
     </div>
