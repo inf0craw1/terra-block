@@ -28,8 +28,8 @@ function Game() {
         <Player />
         <RenderObjectMap mapData={objectMap} />
         <TargetBlock />
-        <Hand />
         {inventory.isOpen ? <Inventory /> : null}
+        <Hand />
         <Controller />
       </div>
     </div>
