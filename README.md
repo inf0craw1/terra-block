@@ -6,5 +6,5 @@ Made this game to improve my React, Zustand, css skills.
 Arrow
 
 ## interact
-Spacebar
+Spacebar 
  
