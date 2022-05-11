@@ -1,5 +1,6 @@
-import "./index.scss";
 import { usePlayerStore } from "../../store/player";
+import ItemBox from "../itemBox";
+import "./index.scss";
 
 const Hand = () => {
   const hand = usePlayerStore.getState().hand;
@@ -7,26 +8,12 @@ const Hand = () => {
   return (
     <div className="hand">
       {hand.items.map((h, idx) => (
-        <div
+        <ItemBox
           key={`hand${idx}`}
-          className={`item ${hand.active === idx + 1 && "active"}`}
-        >
-          {h.quantity ? (
-            <>
-              {" "}
-              <img
-                key={`handItem${idx}`}
-                src={`/asset/img/map/${h.code}.png`}
-                className={`hand-item`}
-                style={{
-                  width: 20,
-                  height: 20,
-                }}
-              />
-              <span className={`hand-item-quantity`}>{h.quantity}</span>
-            </>
-          ) : null}
-        </div>
+          isActive={hand.active === idx + 1}
+          item={h.code}
+          quantity={h.quantity}
+        ></ItemBox>
       ))}
     </div>
   );
