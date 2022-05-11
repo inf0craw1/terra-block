@@ -7,25 +7,4 @@
   width: 320px;
   height: 40px;
   border: 2px solid #777777;
-  .item {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border: 2px solid #aaaaaa;
-    background: rgba(0, 0, 0, 0.5);
-    &.active {
-      border: 2px solid #eeeeee;
-    }
-
-    .hand-item {
-      position: absolute;
-    }
-    .hand-item-quantity {
-      position: absolute;
-      margin: 20px 0 0 20px;
-      color: white;
-    }
-  }
 }
