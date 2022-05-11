@@ -1,3 +1,8 @@
+export interface ItemInterface {
+  code: number;
+  quantity: number;
+}
+
 export interface PlayerStoreInterface {
   profile: {
     name: string;
@@ -27,11 +32,11 @@ export interface PlayerStoreInterface {
   };
   hand: {
     active: number;
-    items: { code: number; quantity: number }[];
+    items: ItemInterface[];
   };
   inventory: {
     isOpen: boolean;
-    items: number[][];
+    items: ItemInterface[][];
   };
   setStatusHP: (HP: number) => void;
   setStatusMaxHP: (maxHP: number) => void;
