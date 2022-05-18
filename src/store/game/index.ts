@@ -10,16 +10,20 @@ export const useGameStore = create(
     },
     BLOCK_SIZE: 20,
     PROCESSING_TIME: {
-      1: {
-        item: 1,
-        processingTime: 3000,
-      },
-      2: {
-        item: 2,
+      100: {
+        item: 100,
         processingTime: 2000,
       },
-      3: {
-        item: 3,
+      200: {
+        item: 200,
+        processingTime: 5000,
+      },
+      210: {
+        item: 210,
+        processingTime: 3000,
+      },
+      290: {
+        item: 290,
         processingTime: 1000,
       },
     },
