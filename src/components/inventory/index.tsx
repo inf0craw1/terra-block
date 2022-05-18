@@ -12,13 +12,25 @@ const Inventory = () => {
           <div className="crafting-list">
             {craftList.map((l, lIdx) => (
               <div key={`craftingList${lIdx}`} className={"crafting-list-item"}>
-                {l.using.map((using, uIdx) => (
-                  <ItemBox
-                    key={`usingList${lIdx}_${uIdx}`}
-                    item={using.item}
-                    quantity={using.quantity}
-                  />
-                ))}
+                <div className="using-list">
+                  {l.using.map((using, uIdx) => (
+                    <ItemBox
+                      key={`usingList${lIdx}_${uIdx}`}
+                      item={using.item}
+                      quantity={using.quantity}
+                    />
+                  ))}
+                </div>
+                <span>=&gt;</span>
+                <div className="crafted-list">
+                  {l.gets.map((using, uIdx) => (
+                    <ItemBox
+                      key={`craftedList${lIdx}_${uIdx}`}
+                      item={using.item}
+                      quantity={using.quantity}
+                    />
+                  ))}
+                </div>
               </div>
             ))}
           </div>
