@@ -1,6 +1,6 @@
 export const craftList = [
   {
-    using: [{ item: 2, quantity: 1 }],
-    gets: [{ item: 4, quantity: 4 }],
+    using: [{ item: 200, quantity: 1 }],
+    gets: [{ item: 210, quantity: 4 }],
   },
 ];
