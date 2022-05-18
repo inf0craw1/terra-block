@@ -1,19 +1,17 @@
 import "./index.scss";
 
 interface ItemBoxPropsInterface {
-  key: string;
   isActive?: boolean;
   item: number;
   quantity: number;
 }
 const ItemBox = ({
-  key,
   isActive = false,
   item,
   quantity,
 }: ItemBoxPropsInterface) => {
   return (
-    <div key={key} className={`item-box ${isActive && "active"}`}>
+    <div className={`item-box ${isActive && "active"}`}>
       {quantity ? (
         <>
           {" "}
