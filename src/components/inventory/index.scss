@@ -27,11 +27,23 @@
         background: rgba(0, 0, 0, 0.7);
         padding: 4px;
         .crafting-list-item {
+          display: flex;
+          align-items: center;
           width: 100%;
           border: 1px solid #555555;
           padding: 4px;
-          &:hover {
+          &.craftable:hover {
             background: #888888;
+          }
+          .using-list {
+            display: flex;
+            justify-content: center;
+            width: 50%;
+          }
+          .crafted-list {
+            display: flex;
+            justify-content: center;
+            width: 50%;
           }
         }
       }
