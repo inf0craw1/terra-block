@@ -1,5 +1,5 @@
 import create from "zustand";
-import { PlayerStoreInterface } from "./it";
+import { ItemInterface, PlayerStoreInterface } from "./it";
 import { devtools } from "zustand/middleware";
 
 export const usePlayerStore = create<PlayerStoreInterface>(
@@ -157,5 +157,6 @@ export const usePlayerStore = create<PlayerStoreInterface>(
         },
       }));
     },
+    addItem: (item: ItemInterface) => {},
   }))
 );
