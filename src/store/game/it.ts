@@ -2,6 +2,10 @@ export interface ProcessingTimeInterface {
   item: number;
   processingTime: number;
 }
+export interface ItemInterface {
+  item: number;
+  quantity: number;
+}
 export interface GameStoreInterface {
   DISPLAY: {
     width: number;
@@ -14,4 +18,8 @@ export interface GameStoreInterface {
   ITEM: {
     maxQuantity: number;
   };
+  CRAFT_LIST: {
+    using: ItemInterface[];
+    gets: ItemInterface[];
+  }[];
 }
