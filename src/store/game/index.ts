@@ -30,5 +30,11 @@ export const useGameStore = create(
     ITEM: {
       maxQuantity: 10,
     },
+    CRAFT_LIST: [
+      {
+        using: [{ item: 200, quantity: 1 }],
+        gets: [{ item: 210, quantity: 4 }],
+      },
+    ],
   }))
 );
