@@ -1,6 +1,9 @@
 import create from "zustand";
 import { ItemInterface, PlayerStoreInterface } from "./it";
 import { devtools } from "zustand/middleware";
+import { gameData } from "../../datas/gameData";
+
+const { ITEM } = gameData;
 
 export const usePlayerStore = create<PlayerStoreInterface>(
   devtools((set) => ({
@@ -26,7 +29,7 @@ export const usePlayerStore = create<PlayerStoreInterface>(
     targetBlock: {
       row: 0,
       col: 0,
-      item: 0,
+      code: 0,
       process: 0,
       processingTime: 0,
     },
@@ -113,7 +116,7 @@ export const usePlayerStore = create<PlayerStoreInterface>(
     setTargetBlockItem: (item) =>
       set((state) => ({
         ...state,
-        targetBlock: { ...state.targetBlock, item: item },
+        targetBlock: { ...state.targetBlock, code: item },
       })),
     setTargetBlockProcess: (targetBlockProcess) =>
       set((state) => ({
@@ -157,6 +160,40 @@ export const usePlayerStore = create<PlayerStoreInterface>(
         },
       }));
     },
-    addItem: (item: ItemInterface) => {},
+    addItem: (item) => {
+      set((state) => {
+        const newHandItems: ItemInterface[] = JSON.parse(
+          JSON.stringify(state.hand.items)
+        );
+        for (let i = 0; i < state.hand.items.length; i++) {
+          if (
+            state.hand.items[i].code === item.code &&
+            ITEM.maxQuantity > state.hand.items[i].quantity
+          ) {
+            let additionalQuantity =
+              state.hand.items[i].quantity + item.quantity <= ITEM.maxQuantity
+                ? item.quantity
+                : ITEM.maxQuantity - state.hand.items[i].quantity;
+            newHandItems[i].quantity += additionalQuantity;
+            item.quantity -= additionalQuantity;
+            if (item.quantity === 0)
+              return { ...state, hand: { ...state.hand, items: newHandItems } };
+          }
+        }
+        for (let i = 0; i < state.hand.items.length; i++) {
+          if (state.hand.items[i].code === 0) {
+            let additionalQuantity =
+              item.quantity <= ITEM.maxQuantity
+                ? item.quantity
+                : ITEM.maxQuantity;
+            newHandItems[i].code = item.code;
+            newHandItems[i].quantity += additionalQuantity;
+            item.quantity -= additionalQuantity;
+            if (item.quantity === 0)
+              return { ...state, hand: { ...state.hand, items: newHandItems } };
+          }
+        }
+      });
+    },
   }))
 );
