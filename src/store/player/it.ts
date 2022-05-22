@@ -26,7 +26,7 @@ export interface PlayerStoreInterface {
   targetBlock: {
     row: number;
     col: number;
-    item: number;
+    code: number;
     process: number;
     processingTime: number;
   };
@@ -52,4 +52,5 @@ export interface PlayerStoreInterface {
   setHandActive: (active: number) => void;
   setHandItems: (items: { code: number; quantity: number }[]) => void;
   setInventoryOpen: (open: boolean) => void;
+  addItem: (item: ItemInterface) => void;
 }
