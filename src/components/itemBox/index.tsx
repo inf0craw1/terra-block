@@ -2,12 +2,12 @@ import "./index.scss";
 
 interface ItemBoxPropsInterface {
   isActive?: boolean;
-  item: number;
+  code: number;
   quantity: number;
 }
 const ItemBox = ({
   isActive = false,
-  item,
+  code,
   quantity,
 }: ItemBoxPropsInterface) => {
   return (
@@ -16,7 +16,7 @@ const ItemBox = ({
         <>
           {" "}
           <img
-            src={`/asset/img/map/${item}.png`}
+            src={`/asset/img/map/${code}.png`}
             className={`item-box-item`}
             style={{
               width: 20,
