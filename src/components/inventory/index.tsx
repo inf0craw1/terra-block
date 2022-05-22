@@ -1,14 +1,13 @@
 import "./index.scss";
 import { usePlayerStore } from "../../store/player";
 import ItemBox from "../itemBox";
-import { useGameStore } from "../../store/game";
 import { useEffect, useState } from "react";
-import { ItemInterface } from "../../store/player/it";
+import { gameData } from "../../datas/gameData";
 
 const Inventory = () => {
   const inventory = usePlayerStore.getState().inventory;
   const hand = usePlayerStore.getState().hand;
-  const { CRAFT_LIST, PROCESSING_TIME } = useGameStore();
+  const { CRAFT_LIST, PROCESSING_TIME } = gameData;
   const [craftableList, setCraftableList] = useState<boolean[]>([]);
   const getAssembledItems = () => {
     let assembledItems: any = Object.assign(PROCESSING_TIME);
@@ -44,7 +43,7 @@ const Inventory = () => {
       CRAFT_LIST.map((listItem) => {
         for (let i = 0; i < listItem.using.length; i++) {
           if (
-            assembledItems[listItem.using[i].item].quantity <
+            assembledItems[listItem.using[i].code].quantity <
             listItem.using[i].quantity
           ) {
             return false;
@@ -72,7 +71,7 @@ const Inventory = () => {
                   {l.using.map((using, uIdx) => (
                     <ItemBox
                       key={`usingList${lIdx}_${uIdx}`}
-                      item={using.item}
+                      code={using.code}
                       quantity={using.quantity}
                     />
                   ))}
@@ -82,7 +81,7 @@ const Inventory = () => {
                   {l.gets.map((using, uIdx) => (
                     <ItemBox
                       key={`craftedList${lIdx}_${uIdx}`}
-                      item={using.item}
+                      code={using.code}
                       quantity={using.quantity}
                     />
                   ))}
@@ -97,7 +96,7 @@ const Inventory = () => {
               row.map((item, colIdx) => (
                 <ItemBox
                   key={`inventory${rowIdx}${colIdx}`}
-                  item={item.code}
+                  code={item.code}
                   quantity={item.quantity}
                 ></ItemBox>
               ))
