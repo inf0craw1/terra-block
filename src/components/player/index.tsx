@@ -1,9 +1,8 @@
 import "./player.scss";
 import { usePlayerStore } from "../../store/player";
-import { useEffect } from "react";
 
 const Player = () => {
-  const { profile, location } = usePlayerStore();
+  const { location } = usePlayerStore();
   const targetBlock = usePlayerStore.getState().targetBlock;
   return (
     <div
@@ -23,7 +22,7 @@ const Player = () => {
           className="processBar"
           style={{
             width:
-              targetBlock.item && targetBlock.processingTime
+              targetBlock.code && targetBlock.processingTime
                 ? (targetBlock.process / targetBlock.processingTime) * 40
                 : 0,
           }}
