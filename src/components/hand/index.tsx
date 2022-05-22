@@ -11,7 +11,7 @@ const Hand = () => {
         <ItemBox
           key={`hand${idx}`}
           isActive={hand.active === idx + 1}
-          item={h.code}
+          code={h.code}
           quantity={h.quantity}
         ></ItemBox>
       ))}
