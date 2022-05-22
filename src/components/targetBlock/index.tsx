@@ -1,11 +1,10 @@
 import { usePlayerStore } from "../../store/player";
 import { useEffect } from "react";
-import { useGameStore } from "../../store/game";
-import { mapData } from "../../datas/map";
 import { objectMapData } from "../../datas/objectMap";
+import { gameData } from "../../datas/gameData";
 
 const TargetBlock = () => {
-  const { BLOCK_SIZE, DISPLAY, PROCESSING_TIME } = useGameStore();
+  const { BLOCK_SIZE, DISPLAY, PROCESSING_TIME } = gameData;
   const {
     status,
     location,
