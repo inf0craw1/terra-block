@@ -1,9 +1,10 @@
 import { useEffect } from "react";
 import { usePlayerStore } from "../../store/player";
 import { KeyMapInterface } from "../../store/contorller/it";
-import { useGameStore } from "../../store/game";
+import { gameData } from "../../datas/gameData";
 
 const Controller = () => {
+  const { DISPLAY } = gameData;
   const {
     status,
     size,
@@ -12,35 +13,10 @@ const Controller = () => {
     setStatusDirection,
     setTargetBlockProcess,
     setHandActive,
-    setHandItems,
     setInventoryOpen,
+    addItem,
   } = usePlayerStore();
   const keyMap: KeyMapInterface = {};
-  const { DISPLAY, PROCESSING_TIME, ITEM } = useGameStore();
-
-  const getItem = (item: number) => {
-    const hand = usePlayerStore.getState().hand;
-    for (let i = 0; i < hand.items.length; i++) {
-      if (
-        hand.items[i].code === item &&
-        hand.items[i].quantity < ITEM.maxQuantity
-      ) {
-        const newItems = JSON.parse(JSON.stringify(hand.items));
-        newItems[i].quantity++;
-        setHandItems(newItems);
-        return;
-      }
-    }
-    for (let i = 0; i < hand.items.length; i++) {
-      if (hand.items[i].code === 0) {
-        const newItems = JSON.parse(JSON.stringify(hand.items));
-        newItems[i].code = item;
-        newItems[i].quantity++;
-        setHandItems(newItems);
-        return;
-      }
-    }
-  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -72,7 +48,7 @@ const Controller = () => {
         );
       }
       if (keyMap[" "]) {
-        if (targetBlock.item) {
+        if (targetBlock.code) {
           setTargetBlockProcess(
             targetBlock.process + 10 >= targetBlock.processingTime
               ? targetBlock.processingTime
@@ -80,7 +56,7 @@ const Controller = () => {
           );
           if (targetBlock.process >= targetBlock.processingTime) {
             setTargetBlockProcess(0);
-            getItem(targetBlock.item);
+            addItem({ code: targetBlock.code, quantity: 1 });
           }
         }
       } else {
