@@ -9,15 +9,15 @@ export const gameData: GameDataInterface = {
   PROCESSING_TIME: {
     100: {
       code: 100,
-      processingTime: 2000,
+      processingTime: 1000,
     },
     200: {
       code: 200,
-      processingTime: 5000,
+      processingTime: 1000,
     },
     210: {
       code: 210,
-      processingTime: 3000,
+      processingTime: 2000,
     },
     290: {
       code: 290,
