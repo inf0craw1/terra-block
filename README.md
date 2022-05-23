@@ -2,10 +2,8 @@
  
 Made this game to improve my React, Zustand, css skills.
 
-## MOVE
-Arrow
-
-## interact 
-Spacebar
- 
- 
+## Controls
+Arrow keys : move
+spacebar: interact
+tab : inventory
+1~8 : change equip item
