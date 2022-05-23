@@ -7,6 +7,7 @@ import { gameData } from "../../datas/gameData";
 const Inventory = () => {
   const inventory = usePlayerStore.getState().inventory;
   const hand = usePlayerStore.getState().hand;
+  const { addItem, removeItem } = usePlayerStore();
   const { CRAFT_LIST, PROCESSING_TIME } = gameData;
   const [craftableList, setCraftableList] = useState<boolean[]>([]);
   const getAssembledItems = () => {
@@ -32,8 +33,15 @@ const Inventory = () => {
 
   const handleCraftingListClick = (listIdx: number) => {
     if (!craftableList[listIdx]) return;
-    for (let i = inventory.items.length - 1; i >= 0; i--) {
-      for (let j = inventory.items[i].length - 1; j >= 0; j--) {}
+    for (let i = 0; i < CRAFT_LIST[listIdx].using.length; i++) {
+      console.log(CRAFT_LIST[listIdx].using[i]);
+    }
+    for (let i = 0; i < CRAFT_LIST[listIdx].using.length; i++) {
+      removeItem(CRAFT_LIST[listIdx].using[i]);
+      console.log(CRAFT_LIST[listIdx].using[i]);
+    }
+    for (let i = 0; i < CRAFT_LIST[listIdx].gets.length; i++) {
+      addItem(CRAFT_LIST[listIdx].gets[i]);
     }
   };
 
