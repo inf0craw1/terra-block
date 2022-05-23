@@ -161,6 +161,7 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       }));
     },
     addItem: (item) => {
+      // let additionalItem =
       set((state) => {
         const newHandItems: ItemInterface[] = JSON.parse(
           JSON.stringify(state.hand.items)
@@ -193,6 +194,30 @@ export const usePlayerStore = create<PlayerStoreInterface>(
               return { ...state, hand: { ...state.hand, items: newHandItems } };
           }
         }
+      });
+    },
+    removeItem: (item) => {
+      let removalItem = JSON.parse(JSON.stringify(item));
+      set((state) => {
+        const newHandItems: ItemInterface[] = JSON.parse(
+          JSON.stringify(state.hand.items)
+        );
+        for (let i = 0; i < state.hand.items.length; i++) {
+          if (state.hand.items[i].code === removalItem.code) {
+            let removalQuantity =
+              state.hand.items[i].quantity <= removalItem.quantity
+                ? state.hand.items[i].quantity
+                : removalItem.quantity;
+            newHandItems[i].quantity -= removalQuantity;
+            removalItem.quantity -= removalQuantity;
+            if (!newHandItems[i].quantity) {
+              newHandItems[i].code = 0;
+            }
+            if (removalItem.quantity === 0)
+              return { ...state, hand: { ...state.hand, items: newHandItems } };
+          }
+        }
+        return { ...state, hand: { ...state.hand, items: newHandItems } };
       });
     },
   }))
