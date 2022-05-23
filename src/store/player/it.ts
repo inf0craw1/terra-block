@@ -53,4 +53,5 @@ export interface PlayerStoreInterface {
   setHandItems: (items: { code: number; quantity: number }[]) => void;
   setInventoryOpen: (open: boolean) => void;
   addItem: (item: ItemInterface) => void;
+  removeItem: (item: ItemInterface) => void;
 }
