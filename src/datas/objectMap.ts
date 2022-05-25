@@ -1,8 +1,6 @@
-interface objectMapDataInterface {
-  [key: string]: number[][];
-}
+import { MapDataInterface } from "./map";
 
-export const objectMapData: objectMapDataInterface = {
+export const objectMapData: MapDataInterface = {
   "0": [
     [
       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
