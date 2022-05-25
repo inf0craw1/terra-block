@@ -16,7 +16,7 @@ const ItemBox = ({
         <>
           {" "}
           <img
-            src={`/asset/img/map/${code}.png`}
+            src={`/asset/img/items/${code}.png`}
             className={`item-box-item`}
             style={{
               width: 20,
