@@ -22,6 +22,7 @@ const Controller = () => {
     const interval = setInterval(() => {
       const loc = usePlayerStore.getState().location;
       const targetBlock = usePlayerStore.getState().targetBlock;
+      const hand = usePlayerStore.getState().hand;
 
       if (keyMap["ArrowLeft"] && !keyMap["ArrowRight"]) {
         setStatusDirection(4);
@@ -58,6 +59,7 @@ const Controller = () => {
             setTargetBlockProcess(0);
             addItem({ code: targetBlock.code, quantity: 1 });
           }
+        } else if (hand.items[hand.active]) {
         }
       } else {
         setTargetBlockProcess(0);
