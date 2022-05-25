@@ -161,36 +161,37 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       }));
     },
     addItem: (item) => {
-      // let additionalItem =
+      let additionalItem = JSON.parse(JSON.stringify(item));
       set((state) => {
         const newHandItems: ItemInterface[] = JSON.parse(
           JSON.stringify(state.hand.items)
         );
         for (let i = 0; i < state.hand.items.length; i++) {
           if (
-            state.hand.items[i].code === item.code &&
+            state.hand.items[i].code === additionalItem.code &&
             ITEM.maxQuantity > state.hand.items[i].quantity
           ) {
             let additionalQuantity =
-              state.hand.items[i].quantity + item.quantity <= ITEM.maxQuantity
-                ? item.quantity
+              state.hand.items[i].quantity + additionalItem.quantity <=
+              ITEM.maxQuantity
+                ? additionalItem.quantity
                 : ITEM.maxQuantity - state.hand.items[i].quantity;
             newHandItems[i].quantity += additionalQuantity;
-            item.quantity -= additionalQuantity;
-            if (item.quantity === 0)
+            additionalItem.quantity -= additionalQuantity;
+            if (additionalItem.quantity === 0)
               return { ...state, hand: { ...state.hand, items: newHandItems } };
           }
         }
         for (let i = 0; i < state.hand.items.length; i++) {
           if (state.hand.items[i].code === 0) {
             let additionalQuantity =
-              item.quantity <= ITEM.maxQuantity
-                ? item.quantity
+              additionalItem.quantity <= ITEM.maxQuantity
+                ? additionalItem.quantity
                 : ITEM.maxQuantity;
-            newHandItems[i].code = item.code;
+            newHandItems[i].code = additionalItem.code;
             newHandItems[i].quantity += additionalQuantity;
-            item.quantity -= additionalQuantity;
-            if (item.quantity === 0)
+            additionalItem.quantity -= additionalQuantity;
+            if (additionalItem.quantity === 0)
               return { ...state, hand: { ...state.hand, items: newHandItems } };
           }
         }
