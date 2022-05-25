@@ -34,11 +34,7 @@ const Inventory = () => {
   const handleCraftingListClick = (listIdx: number) => {
     if (!craftableList[listIdx]) return;
     for (let i = 0; i < CRAFT_LIST[listIdx].using.length; i++) {
-      console.log(CRAFT_LIST[listIdx].using[i]);
-    }
-    for (let i = 0; i < CRAFT_LIST[listIdx].using.length; i++) {
       removeItem(CRAFT_LIST[listIdx].using[i]);
-      console.log(CRAFT_LIST[listIdx].using[i]);
     }
     for (let i = 0; i < CRAFT_LIST[listIdx].gets.length; i++) {
       addItem(CRAFT_LIST[listIdx].gets[i]);
