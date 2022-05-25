@@ -1,8 +1,8 @@
-interface mapDataInterface {
+export interface MapDataInterface {
   [key: string]: number[][];
 }
 
-export const mapData: mapDataInterface = {
+export const mapData: MapDataInterface = {
   "0": [
     [
       100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100, 100,
