@@ -19,6 +19,10 @@ export const gameData: GameDataInterface = {
       code: 210,
       processingTime: 2000,
     },
+    220: {
+      code: 220,
+      processingTime: 0,
+    },
     290: {
       code: 290,
       processingTime: 1000,
@@ -31,6 +35,10 @@ export const gameData: GameDataInterface = {
     {
       using: [{ code: 200, quantity: 1 }],
       gets: [{ code: 210, quantity: 4 }],
+    },
+    {
+      using: [{ code: 210, quantity: 2 }],
+      gets: [{ code: 220, quantity: 4 }],
     },
   ],
 };
