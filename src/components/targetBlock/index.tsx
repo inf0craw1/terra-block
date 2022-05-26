@@ -1,9 +1,10 @@
 import { usePlayerStore } from "../../store/player";
 import { useEffect } from "react";
-import { objectMapData } from "../../datas/objectMap";
 import { gameData } from "../../datas/gameData";
+import { useGameStore } from "../../store/game";
 
 const TargetBlock = () => {
+  const objectMap = useGameStore.getState().objectMap;
   const { BLOCK_SIZE, DISPLAY, PROCESSING_TIME } = gameData;
   const {
     status,
@@ -60,7 +61,7 @@ const TargetBlock = () => {
       colIdx = DISPLAY.width / BLOCK_SIZE - 1;
     }
     if (targetBlock.row !== rowIdx || targetBlock.col !== colIdx) {
-      let item = objectMapData[location.map][rowIdx][colIdx];
+      let item = objectMap[location.map][rowIdx][colIdx];
       setTargetBlock(rowIdx, colIdx);
       setTargetBlockItem(item);
       setTargetBlockProcess(0);
