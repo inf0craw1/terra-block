@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { usePlayerStore } from "../../store/player";
 import { KeyMapInterface } from "../../store/contorller/it";
 import { gameData } from "../../datas/gameData";
+import { useGameStore } from "../../store/game";
 
 const Controller = () => {
   const { DISPLAY } = gameData;
@@ -15,8 +16,10 @@ const Controller = () => {
     setHandActive,
     setInventoryOpen,
     addItem,
+    removeItem,
   } = usePlayerStore();
   const keyMap: KeyMapInterface = {};
+  const { setMap } = useGameStore();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -58,8 +61,15 @@ const Controller = () => {
           if (targetBlock.process >= targetBlock.processingTime) {
             setTargetBlockProcess(0);
             addItem({ code: targetBlock.code, quantity: 1 });
+            setMap(targetBlock.row, targetBlock.col, 0);
           }
-        } else if (hand.items[hand.active]) {
+        } else if (hand.items[hand.active - 1]) {
+          removeItem({ code: hand.items[hand.active - 1].code, quantity: 1 });
+          setMap(
+            targetBlock.row,
+            targetBlock.col,
+            hand.items[hand.active - 1].code
+          );
         }
       } else {
         setTargetBlockProcess(0);
@@ -87,8 +97,6 @@ const Controller = () => {
       }
       if (keyMap["8"]) {
         setHandActive(8);
-      }
-      if (keyMap["Tab"]) {
       }
     }, 10);
 
