@@ -6,21 +6,23 @@ function RenderMap(props: RenderMapPropsInterface): JSX.Element {
   return (
     <>
       {mapData.map((row, rowIdx) =>
-        row.map((col, colIdx) => (
-          <img
-            key={`map_${rowIdx}_${colIdx}`}
-            src={`/asset/img/items/${col}.png`}
-            alt=""
-            className="block"
-            style={{
-              position: "absolute",
-              top: rowIdx * 20,
-              left: colIdx * 20,
-              width: 20,
-              height: 20,
-            }}
-          />
-        ))
+        row.map((col, colIdx) =>
+          col === 0 ? null : (
+            <img
+              key={`map_${rowIdx}_${colIdx}`}
+              src={`/asset/img/items/${col}.png`}
+              alt=""
+              className="block"
+              style={{
+                position: "absolute",
+                top: rowIdx * 20,
+                left: colIdx * 20,
+                width: 20,
+                height: 20,
+              }}
+            />
+          )
+        )
       )}
     </>
   );
