@@ -22,10 +22,12 @@ const Controller = () => {
   const { setMap } = useGameStore();
 
   useEffect(() => {
+    const intervalFrequency = 10;
     const interval = setInterval(() => {
       const loc = usePlayerStore.getState().location;
       const targetBlock = usePlayerStore.getState().targetBlock;
       const hand = usePlayerStore.getState().hand;
+      const map = useGameStore.getState().map;
 
       if (keyMap["ArrowLeft"] && !keyMap["ArrowRight"]) {
         setStatusDirection(4);
@@ -54,9 +56,10 @@ const Controller = () => {
       if (keyMap[" "]) {
         if (targetBlock.code) {
           setTargetBlockProcess(
-            targetBlock.process + 10 >= targetBlock.processingTime
+            targetBlock.process + intervalFrequency >=
+              targetBlock.processingTime
               ? targetBlock.processingTime
-              : targetBlock.process + 10
+              : targetBlock.process + intervalFrequency
           );
           if (targetBlock.process >= targetBlock.processingTime) {
             setTargetBlockProcess(0);
@@ -98,7 +101,7 @@ const Controller = () => {
       if (keyMap["8"]) {
         setHandActive(8);
       }
-    }, 10);
+    }, intervalFrequency);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       let timeout;
