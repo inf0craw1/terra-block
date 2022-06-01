@@ -26,8 +26,6 @@ const Controller = () => {
     const interval = setInterval(() => {
       const loc = usePlayerStore.getState().location;
       const targetBlock = usePlayerStore.getState().targetBlock;
-      const hand = usePlayerStore.getState().hand;
-      const map = useGameStore.getState().map;
 
       if (keyMap["ArrowLeft"] && !keyMap["ArrowRight"]) {
         setStatusDirection(4);
@@ -66,13 +64,6 @@ const Controller = () => {
             addItem({ code: targetBlock.code, quantity: 1 });
             setMap(targetBlock.row, targetBlock.col, 0);
           }
-        } else if (hand.items[hand.active - 1]) {
-          removeItem({ code: hand.items[hand.active - 1].code, quantity: 1 });
-          setMap(
-            targetBlock.row,
-            targetBlock.col,
-            hand.items[hand.active - 1].code
-          );
         }
       } else {
         setTargetBlockProcess(0);
@@ -104,17 +95,35 @@ const Controller = () => {
     }, intervalFrequency);
 
     const handleKeyDown = (e: KeyboardEvent) => {
-      let timeout;
+      let tabTimeout, placeTimeout;
       const inventory = usePlayerStore.getState().inventory;
+      const targetBlock = usePlayerStore.getState().targetBlock;
+      const hand = usePlayerStore.getState().hand;
+
       keyMap[e.key] = true;
       e.preventDefault();
       if (e.key === "Tab") {
-        if (timeout) {
-          clearTimeout(timeout);
+        if (tabTimeout) {
+          clearTimeout(tabTimeout);
         }
-        timeout = setTimeout(() => {
+        tabTimeout = setTimeout(() => {
           setInventoryOpen(!inventory.isOpen);
         }, 10);
+      }
+      if (e.key === " ") {
+        if (placeTimeout) {
+          clearTimeout(placeTimeout);
+        }
+        placeTimeout = setTimeout(() => {
+          if (!targetBlock.code && hand.items[hand.active - 1].code) {
+            removeItem({ code: hand.items[hand.active - 1].code, quantity: 1 });
+            setMap(
+              targetBlock.row,
+              targetBlock.col,
+              hand.items[hand.active - 1].code
+            );
+          }
+        }, 200);
       }
     };
     const handleKeyUp = (e: KeyboardEvent) => {
