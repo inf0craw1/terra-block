@@ -166,6 +166,10 @@ export const usePlayerStore = create<PlayerStoreInterface>(
         const newHandItems: ItemInterface[] = JSON.parse(
           JSON.stringify(state.hand.items)
         );
+        const newInventoryItems: ItemInterface[][] = JSON.parse(
+          JSON.stringify(state.inventory.items)
+        );
+
         for (let i = 0; i < state.hand.items.length; i++) {
           if (
             state.hand.items[i].code === additionalItem.code &&
@@ -182,6 +186,28 @@ export const usePlayerStore = create<PlayerStoreInterface>(
               return { ...state, hand: { ...state.hand, items: newHandItems } };
           }
         }
+        for (let i = 0; i < state.inventory.items.length; i++) {
+          for (let j = 0; j < state.inventory.items[i].length; j++) {
+            if (
+              state.inventory.items[i][j].code === additionalItem.code &&
+              state.inventory.items[i][j].quantity < ITEM.maxQuantity
+            ) {
+              let additionalQuantity =
+                state.inventory.items[i][j].quantity +
+                  additionalItem.quantity <=
+                ITEM.maxQuantity
+                  ? ITEM.maxQuantity - additionalItem.quantity
+                  : ITEM.maxQuantity;
+              newInventoryItems[i][j].quantity += additionalQuantity;
+              additionalItem.quantity -= additionalQuantity;
+              if (additionalItem.quantity === 0)
+                return {
+                  ...state,
+                  inventory: { ...state.inventory, items: newInventoryItems },
+                };
+            }
+          }
+        }
         for (let i = 0; i < state.hand.items.length; i++) {
           if (state.hand.items[i].code === 0) {
             let additionalQuantity =
@@ -193,6 +219,24 @@ export const usePlayerStore = create<PlayerStoreInterface>(
             additionalItem.quantity -= additionalQuantity;
             if (additionalItem.quantity === 0)
               return { ...state, hand: { ...state.hand, items: newHandItems } };
+          }
+        }
+        for (let i = 0; i < state.inventory.items.length; i++) {
+          for (let j = 0; j < state.inventory.items[i].length; j++) {
+            if (state.inventory.items[i][j].code === 0) {
+              let additionalQuantity =
+                additionalItem.quantity <= ITEM.maxQuantity
+                  ? additionalItem.quantity
+                  : ITEM.maxQuantity;
+              newInventoryItems[i][j].code = additionalItem.code;
+              newInventoryItems[i][j].quantity += additionalQuantity;
+              additionalItem.quantity -= additionalQuantity;
+              if (additionalItem.quantity === 0)
+                return {
+                  ...state,
+                  inventory: { ...state.inventory, items: newInventoryItems },
+                };
+            }
           }
         }
       });
