@@ -2,7 +2,7 @@
   
 I made this game to improve my React, Zustand, CSS skills.
 
-## Controls
+## Controls 
 
 Arrow keys : move   
 
