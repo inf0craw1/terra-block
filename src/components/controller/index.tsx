@@ -22,6 +22,15 @@ const Controller = () => {
   const keyMap: KeyMapInterface = {};
   const { setObjectMap } = useGameStore();
 
+  const resetTargetBlock = () => {
+    const { location, targetBlock } = usePlayerStore.getState();
+    const { objectMap } = useGameStore.getState();
+
+    setTargetBlockItem(
+      objectMap[location.map][targetBlock.row][targetBlock.col]
+    );
+  };
+
   useEffect(() => {
     const intervalFrequency = 10;
     const interval = setInterval(() => {
@@ -64,7 +73,7 @@ const Controller = () => {
             setTargetBlockProcess(0);
             addItem({ code: targetBlock.code, quantity: 1 });
             setObjectMap(targetBlock.row, targetBlock.col, 0);
-            setTargetBlockItem(0);
+            resetTargetBlock();
           }
         }
       } else {
@@ -120,12 +129,12 @@ const Controller = () => {
         placeTimeout = setTimeout(() => {
           if (!targetBlock.code && hand.items[hand.active - 1].code) {
             removeItem({ code: hand.items[hand.active - 1].code, quantity: 1 });
-            setTargetBlockItem(hand.items[hand.active - 1].code);
             setObjectMap(
               targetBlock.row,
               targetBlock.col,
               hand.items[hand.active - 1].code
             );
+            resetTargetBlock();
           }
         }, 200);
       }
