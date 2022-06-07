@@ -11,7 +11,7 @@ export const useGameStore = create<GameStoreInterface>(
   devtools((set) => ({
     map: mapData,
     objectMap: objectMapData,
-    setMap: (rowIdx, colIdx, code) => {
+    setObjectMap: (rowIdx, colIdx, code) => {
       set((state) => {
         if (!code) {
           if (state.objectMap[location.map][rowIdx][colIdx]) {
@@ -19,17 +19,17 @@ export const useGameStore = create<GameStoreInterface>(
             newMap[location.map][rowIdx][colIdx] = 0;
             return { ...state, objectMap: newMap };
           }
-          if (state.map[location.map][rowIdx][colIdx]) {
-            const newMap = JSON.parse(JSON.stringify(state.map));
-            newMap[location.map][rowIdx][colIdx] = 0;
-            return { ...state, map: newMap };
-          }
+          // if (state.map[location.map][rowIdx][colIdx]) {
+          //   const newMap = JSON.parse(JSON.stringify(state.map));
+          //   newMap[location.map][rowIdx][colIdx] = 0;
+          //   return { ...state, map: newMap };
+          // }
         }
-        if (!state.map[location.map][rowIdx][colIdx]) {
-          const newMap = JSON.parse(JSON.stringify(state.map));
-          newMap[location.map][rowIdx][colIdx] = code;
-          return { ...state, map: newMap };
-        }
+        // if (!state.map[location.map][rowIdx][colIdx]) {
+        //   const newMap = JSON.parse(JSON.stringify(state.map));
+        //   newMap[location.map][rowIdx][colIdx] = code;
+        //   return { ...state, map: newMap };
+        // }
         if (!state.objectMap[location.map][rowIdx][colIdx]) {
           const newMap = JSON.parse(JSON.stringify(state.objectMap));
           newMap[location.map][rowIdx][colIdx] = code;
