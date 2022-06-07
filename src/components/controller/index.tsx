@@ -12,6 +12,7 @@ const Controller = () => {
     setLocationX,
     setLocationY,
     setStatusDirection,
+    setTargetBlockItem,
     setTargetBlockProcess,
     setHandActive,
     setInventoryOpen,
@@ -19,7 +20,7 @@ const Controller = () => {
     removeItem,
   } = usePlayerStore();
   const keyMap: KeyMapInterface = {};
-  const { setMap } = useGameStore();
+  const { setObjectMap } = useGameStore();
 
   useEffect(() => {
     const intervalFrequency = 10;
@@ -62,7 +63,8 @@ const Controller = () => {
           if (targetBlock.process >= targetBlock.processingTime) {
             setTargetBlockProcess(0);
             addItem({ code: targetBlock.code, quantity: 1 });
-            setMap(targetBlock.row, targetBlock.col, 0);
+            setObjectMap(targetBlock.row, targetBlock.col, 0);
+            setTargetBlockItem(0);
           }
         }
       } else {
@@ -94,8 +96,8 @@ const Controller = () => {
       }
     }, intervalFrequency);
 
+    let tabTimeout: any, placeTimeout: any;
     const handleKeyDown = (e: KeyboardEvent) => {
-      let tabTimeout, placeTimeout;
       const inventory = usePlayerStore.getState().inventory;
       const targetBlock = usePlayerStore.getState().targetBlock;
       const hand = usePlayerStore.getState().hand;
@@ -108,6 +110,7 @@ const Controller = () => {
         }
         tabTimeout = setTimeout(() => {
           setInventoryOpen(!inventory.isOpen);
+          console.log("tabTimeout");
         }, 10);
       }
       if (e.key === " ") {
@@ -117,7 +120,8 @@ const Controller = () => {
         placeTimeout = setTimeout(() => {
           if (!targetBlock.code && hand.items[hand.active - 1].code) {
             removeItem({ code: hand.items[hand.active - 1].code, quantity: 1 });
-            setMap(
+            setTargetBlockItem(hand.items[hand.active - 1].code);
+            setObjectMap(
               targetBlock.row,
               targetBlock.col,
               hand.items[hand.active - 1].code
