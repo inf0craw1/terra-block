@@ -3,14 +3,14 @@ import { usePlayerStore } from "../../store/player";
 import { KeyMapInterface } from "../../store/contorller/it";
 import { gameData } from "../../datas/gameData";
 import { useGameStore } from "../../store/game";
+import { LocationInterface } from "../../store/player/it";
 
 const Controller = () => {
   const { DISPLAY } = gameData;
   const {
     status,
     size,
-    setLocationX,
-    setLocationY,
+    setLocation,
     setStatusDirection,
     setTargetBlockItem,
     setTargetBlockProcess,
@@ -32,6 +32,29 @@ const Controller = () => {
   };
 
   useEffect(() => {
+    const getMovingLocation = (
+      currentLocation: LocationInterface,
+      diffLocation: LocationInterface
+    ) => {
+      const resLocation: LocationInterface = JSON.parse(
+        JSON.stringify(currentLocation)
+      );
+      resLocation.x += diffLocation.x;
+      resLocation.y += diffLocation.y;
+      if (currentLocation.x + diffLocation.x < 0) {
+        resLocation.x = 0;
+      }
+      if (currentLocation.y + diffLocation.y < 0) {
+        resLocation.y = 0;
+      }
+      if (currentLocation.x + diffLocation.x + size.width > DISPLAY.width) {
+        resLocation.x = DISPLAY.width;
+      }
+      if (currentLocation.y + diffLocation.y + size.height > DISPLAY.height) {
+        resLocation.y = DISPLAY.height;
+      }
+      return resLocation;
+    };
     const intervalFrequency = 10;
     const interval = setInterval(() => {
       const loc = usePlayerStore.getState().location;
@@ -39,26 +62,26 @@ const Controller = () => {
 
       if (keyMap["ArrowLeft"] && !keyMap["ArrowRight"]) {
         setStatusDirection(4);
-        setLocationX(loc.x - status.speed <= 0 ? 0 : loc.x - status.speed);
+        setLocation(
+          getMovingLocation({ x: loc.x, y: loc.y }, { x: -status.speed, y: 0 })
+        );
       }
       if (keyMap["ArrowRight"] && !keyMap["ArrowLeft"]) {
         setStatusDirection(6);
-        setLocationX(
-          loc.x + status.speed >= DISPLAY.width - size.width
-            ? DISPLAY.width - size.width
-            : loc.x + status.speed
+        setLocation(
+          getMovingLocation({ x: loc.x, y: loc.y }, { x: status.speed, y: 0 })
         );
       }
       if (keyMap["ArrowUp"] && !keyMap["ArrowDown"]) {
         setStatusDirection(2);
-        setLocationY(loc.y - status.speed <= 0 ? 0 : loc.y - status.speed);
+        setLocation(
+          getMovingLocation({ x: loc.x, y: loc.y }, { x: 0, y: -status.speed })
+        );
       }
       if (keyMap["ArrowDown"] && !keyMap["ArrowUp"]) {
         setStatusDirection(8);
-        setLocationY(
-          loc.y + status.speed >= DISPLAY.height - size.height
-            ? DISPLAY.height - size.height
-            : loc.y + status.speed
+        setLocation(
+          getMovingLocation({ x: loc.x, y: loc.y }, { x: 0, y: status.speed })
         );
       }
       if (keyMap[" "]) {
