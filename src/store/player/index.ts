@@ -104,10 +104,11 @@ export const usePlayerStore = create<PlayerStoreInterface>(
       })),
     setLocationMap: (map) =>
       set((state) => ({ ...state, location: { ...state.location, map: map } })),
-    setLocationX: (x) =>
-      set((state) => ({ ...state, location: { ...state.location, x: x } })),
-    setLocationY: (y) =>
-      set((state) => ({ ...state, location: { ...state.location, y: y } })),
+    setLocation: (loc) =>
+      set((state) => ({
+        ...state,
+        location: { ...state.location, x: loc.x, y: loc.y },
+      })),
     setTargetBlock: (row, col) =>
       set((state) => ({
         ...state,
