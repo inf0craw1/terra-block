@@ -2,6 +2,10 @@ export interface ItemInterface {
   code: number;
   quantity: number;
 }
+export interface LocationInterface {
+  x: number;
+  y: number;
+}
 
 export interface PlayerStoreInterface {
   profile: {
@@ -43,8 +47,7 @@ export interface PlayerStoreInterface {
   setStatusSpeed: (speed: number) => void;
   setStatusDirection: (direction: 1 | 2 | 3 | 4 | 6 | 7 | 8 | 9) => void;
   setLocationMap: (map: number) => void;
-  setLocationX: (x: number) => void;
-  setLocationY: (y: number) => void;
+  setLocation: (loc: LocationInterface) => void;
   setTargetBlock: (row: number, col: number) => void;
   setTargetBlockItem: (item: number) => void;
   setTargetBlockProcess: (process: number) => void;
