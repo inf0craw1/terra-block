@@ -4,9 +4,9 @@ I made this game to improve my React, Zustand, CSS skills.
 
 ## Controls
 
-Arrow keys : move 
+Arrow keys : move
 
-Spacebar: interact  
+Spacebar: interact
 
 Tab : inventory  
 
