@@ -21,10 +21,9 @@ const Controller = () => {
   } = usePlayerStore();
   const keyMap: KeyMapInterface = {};
   const { setObjectMap } = useGameStore();
-
+  const { objectMap } = useGameStore.getState();
   const resetTargetBlock = () => {
     const { location, targetBlock } = usePlayerStore.getState();
-    const { objectMap } = useGameStore.getState();
 
     setTargetBlockItem(
       objectMap[location.map][targetBlock.row][targetBlock.col]
@@ -59,6 +58,7 @@ const Controller = () => {
     const interval = setInterval(() => {
       const loc = usePlayerStore.getState().location;
       const targetBlock = usePlayerStore.getState().targetBlock;
+      const hand = usePlayerStore.getState().hand;
 
       if (keyMap["ArrowLeft"] && !keyMap["ArrowRight"]) {
         setStatusDirection(4);
@@ -85,18 +85,23 @@ const Controller = () => {
         );
       }
       if (keyMap[" "]) {
-        if (targetBlock.code) {
-          setTargetBlockProcess(
-            targetBlock.process + intervalFrequency >=
-              targetBlock.processingTime
-              ? targetBlock.processingTime
-              : targetBlock.process + intervalFrequencyz
-          );
-          if (targetBlock.process >= targetBlock.processingTime) {
-            setTargetBlockProcess(0);
-            addItem({ code: targetBlock.code, quantity: 1 });
-            setObjectMap(targetBlock.row, targetBlock.col, 0);
-            resetTargetBlock();
+        if (
+          hand.items[hand.active - 1].code % 100 >= 50 ||
+          hand.items[hand.active - 1].code === 0
+        ) {
+          if (targetBlock.code) {
+            setTargetBlockProcess(
+              targetBlock.process + intervalFrequency >=
+                targetBlock.processingTime
+                ? targetBlock.processingTime
+                : targetBlock.process + intervalFrequency
+            );
+            if (targetBlock.process >= targetBlock.processingTime) {
+              setTargetBlockProcess(0);
+              addItem({ code: targetBlock.code, quantity: 1 });
+              setObjectMap(targetBlock.row, targetBlock.col, 0);
+              resetTargetBlock();
+            }
           }
         }
       } else {
@@ -143,13 +148,11 @@ const Controller = () => {
         }
         tabTimeout = setTimeout(() => {
           setInventoryOpen(!inventory.isOpen);
-          console.log("tabTimeout");
         }, 10);
       }
       if (e.key === " ") {
         if (!placeTimeout) {
           if (!targetBlock.code && hand.items[hand.active - 1].code) {
-            console.log("lay block");
             removeItem({ code: hand.items[hand.active - 1].code, quantity: 1 });
             setObjectMap(
               targetBlock.row,
