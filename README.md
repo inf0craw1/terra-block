@@ -10,5 +10,5 @@ Spacebar: interact(break block, lay block)
 
 Tab : inventory  
 
-1~8 : change equip item
+1~8 : change equip item 
  
