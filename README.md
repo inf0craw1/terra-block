@@ -12,3 +12,4 @@ Tab : inventory
 
 1~8 : change equip item 
  
+ 
