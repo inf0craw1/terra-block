@@ -1,4 +1,4 @@
-# Terra Block
+# Terra Block 
 
 I made this game to improve my React, Zustand, CSS skills.
  
