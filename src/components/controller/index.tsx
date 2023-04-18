@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { usePlayerStore } from "../../store/player";
-import { KeyMapInterface } from "../../store/contorller/it";
+import { KeyMapInterface } from "../../store/controller/it";
 import { gameData } from "../../datas/gameData";
 import { useGameStore } from "../../store/game";
 import { LocationInterface } from "../../store/player/it";
@@ -178,7 +178,23 @@ const Controller = () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.removeEventListener("keyup", handleKeyUp);
     };
-  }, []);
+  }, [
+    DISPLAY.height,
+    DISPLAY.width,
+    addItem,
+    keyMap,
+    removeItem,
+    resetTargetBlock,
+    setHandActive,
+    setInventoryOpen,
+    setLocation,
+    setObjectMap,
+    setStatusDirection,
+    setTargetBlockProcess,
+    size.height,
+    size.width,
+    status.speed,
+  ]);
 
   return <></>;
 };
