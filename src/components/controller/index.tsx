@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { usePlayerStore } from "../../store/player";
 import { KeyMapInterface } from "../../store/controller/it";
 import { gameData } from "../../datas/gameData";
@@ -22,13 +22,13 @@ const Controller = () => {
   const keyMap: KeyMapInterface = {};
   const { setObjectMap } = useGameStore();
   const { objectMap } = useGameStore.getState();
-  const resetTargetBlock = () => {
+  const resetTargetBlock = useMemo(() => {
     const { location, targetBlock } = usePlayerStore.getState();
 
     setTargetBlockItem(
       objectMap[location.map][targetBlock.row][targetBlock.col]
     );
-  };
+  }, [objectMap, setTargetBlockItem]);
 
   useEffect(() => {
     const getMovingLocation = (
